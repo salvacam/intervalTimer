@@ -1,7 +1,7 @@
 {
   "lang": "en",
   "name": "Interval Timer",
-  "short_name": "Interval Timer",
+  "short_name": "intervalTime",
   "icons": [{
         "src": "img/icon-48x48.png",
         "sizes": "48x48",
