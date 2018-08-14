@@ -1,0 +1,173 @@
+<!DOCTYPE HTML>
+<html lang="es">
+<head>
+	<meta charset="UTF-8">
+	<title>Interval Timer</title>
+
+	<meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, maximum-scale=2" />
+
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+
+  	<meta name="theme-color" content="#CCC">
+
+  	<style type="text/css">
+  		html{
+  			width: 100%;
+  			height: 100%;
+		}
+
+		html.rest, 
+		.jumbotron.rest {
+	  		background: pink;
+		}
+
+		html.work,
+		.jumbotron.work {
+  			background: cyan;
+		}
+
+		body {
+		    font-family: Helvetica;
+		    font-size: 16px;
+		    min-width: 240px;
+		}
+
+		header h3 {
+		    width: 100%;
+		    margin: 0;
+		    background-color: #ccc;
+		    border-bottom: 1px solid #666;
+		    font-size: 20px;
+		    font-weight: bold;
+		    padding: 5px 0;
+		    padding-left: 3%;
+		    padding-right: 3%;
+		    padding-bottom: 2px;
+		    padding-top: 4px;
+		}
+
+		header h3 img {
+			margin-right: 15px;
+		}
+
+		.jumbotron {
+		    background-color: white;
+		}
+
+		.jumbotron.container {
+		  margin-right: 0px;
+		  margin-left: 0px;
+		  padding-left: 0px;
+		  padding-right: 5px;
+		}
+
+		.principal {
+		  margin-top: 5px;
+		  text-align: center;
+		}
+
+
+	  	.principal .title {
+		    display: inline-block;
+		    width: 50px;
+		    text-align: left;
+	  	}
+
+	  	.principal .value {
+		    width: 25px;
+		    height: 20px;
+		    font-size: 20px; 
+		    margin-left: 10px;
+		    margin-right: 10px;
+	  	}
+
+	  	.principal a {
+		    height: 20px;
+		    font-size: 20px; 
+	  	}
+
+	  
+	  	.principal a.nv-select {
+	    	border: 2px solid cyan;
+	  	}
+
+		.chronoDiv span{
+		    width: 50px;
+		    height: 20px;
+		    font-size: 30px; 
+		    margin-left: 10px;
+		    margin-right: 10px;
+	  	}
+
+		div.clear {
+	  		height: 5px;
+		}
+
+		.hide {
+	  		display: none;
+		}
+  	</style>
+
+	<link rel="stylesheet" href="css/framework.min.css">  
+
+    <link rel="manifest" href="./manifest.json">
+
+    <meta name="description" content="Interval timer">
+    <meta name="keywords" content="interval timer, timer, tabata, chronometer, chrono" />
+
+    <meta name="author" content="Salvador Camacho" /> 
+
+</head>
+
+<body>
+
+	<header>
+		<h3>
+			<img src="img/icon.png" alt="icon" height="24">Interval Timer
+		</h3>                    
+	</header>
+
+      
+    <div class="container principal jumbotron" id="principalDiv">
+
+		<div id="setDiv" class="setDiv">
+			<div>
+				<span class="title">Sets</span>
+				<a id="setsLess" class="lessBtn btn btn-sm navigatorConfig nv-select" data-type="sets" tabindex="1">-</a>	
+				<span id="setsValue" class="value">2</span> <!-- 10 -->
+				<a id="setsMore" class="moreBtn btn btn-sm navigatorConfig" data-type="sets" tabindex="2">+</a>	
+			</div>
+			<div class="clear"></div>			
+			<div>
+				<span class="title">Work</span>
+				<a id="workLess" class="lessBtn btn btn-sm navigatorConfig" data-type="work" tabindex="3">-</a>	
+				<span id="workValue" class="value">5</span> <!-- 30 -->
+				<a id="workMore" class="moreBtn btn btn-sm navigatorConfig" data-type="work" tabindex="4">+</a>	
+			</div>
+			<div class="clear"></div>			
+			<div>
+				<span class="title">Rest</span>
+				<a id="restLess" class="lessBtn btn btn-sm navigatorConfig" data-type="rest" tabindex="5">-</a>
+				<span id="restValue" class="value">5</span> <!-- 10 -->
+				<a id="restMore" class="moreBtn btn btn-sm navigatorConfig" data-type="rest" tabindex="6">+</a>	
+			</div>
+			<div class="clear"></div>
+			<a id="play" class="btn btn-b btn-sm navigatorConfig" tabindex="7">Play</a>
+		</div>
+
+		<div id="chronoDiv" class="chronoDiv hide">
+			<span id="cycle">1/10</span>
+			<div class="clear"></div>
+			<span id="timeRest">30</span>
+			<div class="clear"></div>
+			<span id="textChrono">Rest</span>
+			<div class="clear"></div>
+			<a id="pause" class="btn btn-a btn-sm navigatorChrono" tabindex="8">Pause</a>
+			<a id="reset" class="btn btn-c btn-sm navigatorChrono" tabindex="9">Reset</a> <!-- pause and confirm -->
+		</div>
+	</div>
+    
+	<script type="text/javascript" charset="utf-8" src="js/main.js"></script>
+
+</body>
+</html>
