@@ -73,7 +73,7 @@ var app = {
 		document.getElementsByClassName('navigatorChrono')[0].classList.add('nv-select');
 		/* TODO refactorizar */
 		cycle.innerText = (app.workFinish + 1) + "/" + app.setsValue.innerText;
-		timeRest.innerText = app.restValue.innerText;
+		timeRest.innerText =  10; // app.restValue.innerText;
 		document.getElementById('principalDiv').classList.add('rest');
 
 		//init clock		
