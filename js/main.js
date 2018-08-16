@@ -73,7 +73,7 @@ var app = {
 		document.getElementsByClassName('navigatorChrono')[0].classList.add('nv-select');
 		/* TODO refactorizar */
 		cycle.innerText = (app.workFinish + 1) + "/" + app.setsValue.innerText;
-		timeRest.innerText =  10; // app.restValue.innerText;
+		//app.timeRest.innerText =  10; // app.restValue.innerText;
 		document.getElementById('principalDiv').classList.add('rest');
 
 		//init clock		
@@ -125,7 +125,7 @@ var app = {
 				restTime -=1;
 			}
 
-  			timeRest.innerText = restTime;
+  			app.timeRest.innerText = restTime;
   			if (restTime === 3) { 
   				app.playSound('end');
   			}
