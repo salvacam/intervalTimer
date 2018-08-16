@@ -22,6 +22,10 @@ var app = {
   	interval: null,
   	intervalButton: null,
   	audio: new Audio(),
+  	isKaiOS: false,
+  	isPaused: false,
+  	modalPause: document.getElementById('modalPause'),
+  	modalReset: document.getElementById('modalReset'),
 
   	playSound: function(srcSound){
 		app.audio.src = "./sound/" + srcSound + ".ogg";
@@ -83,60 +87,80 @@ var app = {
 		document.getElementsByClassName("jumbotron")[0].classList.add('rest');
 		/* TODO refactorizar */
 		let restTime = 10; //app.restValue.innerText;		
-		app.interval = setInterval(function() {			
-  			if (restTime === 0) {
-  				if (app.stateChrono === 1) {  			
-					restTime = app.workValue.innerText;
-					app.stateChrono = 2;
-					app.textChrono.innerText = "Work"; /* TODO refactorizar */
-					/* TODO refactorizar */
-					document.getElementsByTagName("html")[0].classList.remove('rest');
-					document.getElementsByClassName("jumbotron")[0].classList.remove('rest');
-					document.getElementsByTagName("html")[0].classList.add('work');
-					document.getElementsByClassName("jumbotron")[0].classList.add('work');
-					/* TODO refactorizar */
-  					app.playSound('alert');
-  				} else {
-  					restTime = app.restValue.innerText;
-  					app.stateChrono = 1;
-  					app.textChrono.innerText = "Rest"; /* TODO refactorizar */
-  					app.workFinish += 1;  							
-  					if (app.workFinish >= app.setsValue.innerText){
-  						clearInterval(app.interval);
-  						app.playSound('gong');
-						app.textChrono.innerText = "Finish !!!"; /* TODO refactorizar */
-						clearInterval(app.interval);
-						restTime = 0;
-    					setTimeout(function () {
-							app.showConfig();
-    					}, 10000);
-  					} else {
-	  					cycle.innerText = (app.workFinish + 1) + "/" + app.setsValue.innerText;
-	  					/* TODO refactorizar */
-	  					document.getElementsByTagName("html")[0].classList.remove('work');
-	  					document.getElementsByClassName("jumbotron")[0].classList.remove('work');
-	  					document.getElementsByTagName("html")[0].classList.add('rest');
-	  					document.getElementsByClassName("jumbotron")[0].classList.add('rest');
-	  					/* TODO refactorizar */
-	  					app.playSound('gong2');
-					}
-  				}
-  			} else {
-				restTime -=1;
-			}
+		app.interval = setInterval(function() {
+			if (!app.isPaused) {
+	  			if (restTime === 0) {
+	  				if (app.stateChrono === 1) {  			
+						restTime = app.workValue.innerText;
+						app.stateChrono = 2;
+						app.textChrono.innerText = "Work"; /* TODO refactorizar */
+						/* TODO refactorizar */
+						document.getElementsByTagName("html")[0].classList.remove('rest');
+						document.getElementsByClassName("jumbotron")[0].classList.remove('rest');
+						document.getElementsByTagName("html")[0].classList.add('work');
+						document.getElementsByClassName("jumbotron")[0].classList.add('work');
+						/* TODO refactorizar */
+	  					app.playSound('alert');
+	  				} else {
+	  					restTime = app.restValue.innerText;
+	  					app.stateChrono = 1;
+	  					app.textChrono.innerText = "Rest"; /* TODO refactorizar */
+	  					app.workFinish += 1;  							
+	  					if (app.workFinish >= app.setsValue.innerText){
+	  						clearInterval(app.interval);
+	  						app.playSound('gong');
+							app.textChrono.innerText = "Finish !!!"; /* TODO refactorizar */
+							clearInterval(app.interval);
+							restTime = 0;
+	    					setTimeout(function () {
+								app.showConfig();
+	    					}, 10000);
+	  					} else {
+		  					cycle.innerText = (app.workFinish + 1) + "/" + app.setsValue.innerText;
+		  					/* TODO refactorizar */
+		  					document.getElementsByTagName("html")[0].classList.remove('work');
+		  					document.getElementsByClassName("jumbotron")[0].classList.remove('work');
+		  					document.getElementsByTagName("html")[0].classList.add('rest');
+		  					document.getElementsByClassName("jumbotron")[0].classList.add('rest');
+		  					/* TODO refactorizar */
+		  					app.playSound('gong2');
+						}
+	  				}
+	  			} else {
+					restTime -=1;
+				}
 
-  			app.timeRest.innerText = restTime;
-  			if (restTime === 3) { 
-  				app.playSound('end');
+	  			app.timeRest.innerText = restTime;
+	  			if (restTime === 3) { 
+	  				app.playSound('end');
+	  			}
   			}
 		}, 1000);
 	},
 
 	resetChrono: function() {
-		if ( (app.workFinish >= app.setsValue.innerText) || confirm('¿Reset chrono?')) { //TODO no preguntar
-			clearInterval(app.interval);
-			app.workFinish = 0;
-			app.showConfig();
+		if(app.isKaiOS) {
+			if ( (app.workFinish >= app.setsValue.innerText) || confirm('¿Reset chrono?')) { //TODO no preguntar
+				clearInterval(app.interval);
+				app.workFinish = 0;
+				app.showConfig();
+			}
+		} else {
+			app.isPaused = true;
+			app.modalReset.classList.remove('hide');
+  			document.getElementById('okReset').addEventListener('click', () => {  				
+				app.isPaused = false;
+				app.modalReset.classList.add('hide');
+				document.getElementById('okReset').removeEventListener('click', ()=> {});
+				clearInterval(app.interval);
+				app.workFinish = 0;
+				app.showConfig();
+  			});
+  			document.getElementById('closeReset').addEventListener('click', () => {  				
+				app.isPaused = false;
+				app.modalReset.classList.add('hide');
+				document.getElementById('closeReset').removeEventListener('click', ()=> {});
+  			});
 		}
 		
 	},
@@ -160,7 +184,18 @@ var app = {
 	},
 
 	pauseChrono: function() {
-		alert('Pause');
+		if(app.isKaiOS) {
+			alert('Pause');
+		} else {
+			app.isPaused = true;
+			app.modalPause.classList.remove('hide');
+  			document.getElementById('closePause').addEventListener('click', () => {  				
+				app.isPaused = false;
+				app.modalPause.classList.add('hide');
+				document.getElementById('closePause').removeEventListener('click', ()=> {});
+  			});
+		}
+		
 	},
 
 	lessValue: function(type) {

@@ -94,6 +94,8 @@
 		    font-size: 20px; 
 		    background-color: #0000FF;
 		    color: #FFFFFF;
+		        border-radius: 10px;
+
 	  	}
 
 	  
@@ -112,6 +114,49 @@
 		.chronoDiv span#timeRest {
 			font-weight: bold;
 		}
+
+		.modalPause,
+		.modalReset {
+     		display: flex;
+     		flex-direction: column;
+     		justify-content: center;
+    		align-items: center;
+    		position: fixed;
+    		width: 100%;
+		    height: 100%;
+    		background: grey;
+    		color: #FFF;
+    		font-size: 24px;
+    		opacity: 0.8;
+		}
+			.modalPause .close,
+			.modalReset .closeReset,
+			.modalReset .okReset {
+			    height: 20px;
+			    margin-top: 10px;
+			    font-size: 20px; 
+			    background-color: #0000FF;
+			    color: #FFFFFF;
+			    padding: 10px;
+		        border-radius: 10px;
+				opacity: 1;
+				text-align: center;
+			}
+
+			.modalPause .pauseText,
+			.modalReset .resetText {
+				color: #000;
+				opacity: 1;
+     			background: lightgrey;
+    			padding: 10px;
+    			border-radius: 10px;
+			}
+
+			.modalReset .buttonDiv {
+		    	display: inline-flex;
+    			justify-content: space-between;
+    			min-width: 100px;
+			}
 
 		div.clear {
 	  		height: 5px;
@@ -141,7 +186,19 @@
 		</h3>                    
 	</header>
 
-      
+	<div id="modalPause" class="hide modalPause">
+		<div class="pauseText">Pause</div>
+		<div id="closePause" class="close">X</div>
+	</div>
+
+	<div id="modalReset" class="hide modalReset">
+		<div class="resetText">Are sure?</div>
+		<div class="buttonDiv">
+			<div id="okReset" class="okReset">Ok</div>
+			<div id="closeReset" class="closeReset">X</div>
+		</div>
+	</div>
+
     <div class="container principal jumbotron" id="principalDiv">
 
 		<div id="setDiv" class="setDiv">
@@ -151,7 +208,7 @@
 				<span id="setsValue" class="value">20</span>
 				<a id="setsMore" class="moreBtn btn btn-sm navigatorConfig" data-type="sets" tabindex="0">+</a>	
 			</div>
-			<div class="clear"></div>			
+			<div class="clear"></div>
 			<div>
 				<span class="title">Work</span>
 				<a id="workLess" class="lessBtn btn btn-sm navigatorConfig" data-type="work" tabindex="0">-</a>	
