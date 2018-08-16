@@ -40,14 +40,18 @@ var app = {
     	for (var i = 0; i < classnameLess.length; i++) {
     		classnameLess[i].addEventListener('click', app.lessValue);
     		classnameLess[i].addEventListener('mousedown', app.lessValueCont);
+    		classnameLess[i].addEventListener('touchstart', app.lessValueCont);
     		classnameLess[i].addEventListener('mouseup', app.lessValueContEnd);
+    		classnameLess[i].addEventListener('touchend', app.lessValueContEnd);    		
 		}
 
     	let classnameMore = document.getElementsByClassName('moreBtn');
     	for (var i = 0; i < classnameMore.length; i++) {
     		classnameMore[i].addEventListener('click', app.moreValue);
     		classnameMore[i].addEventListener('mousedown', app.moreValueCont);
+    		classnameMore[i].addEventListener('touchstart', app.moreValueCont);
     		classnameMore[i].addEventListener('mouseup', app.moreValueContEnd);
+    		classnameMore[i].addEventListener('touchend', app.moreValueContEnd);
 		}
 
 	    if ('serviceWorker' in navigator) {
