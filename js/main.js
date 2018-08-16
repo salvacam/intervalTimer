@@ -20,6 +20,7 @@ var app = {
   	timeRest: document.getElementById('timeRest'),
   	textChrono: document.getElementById('textChrono'),
   	interval: null,
+  	intervalButton: null,
   	audio: new Audio(),
 
   	playSound: function(srcSound){
@@ -38,11 +39,15 @@ var app = {
     	let classnameLess = document.getElementsByClassName('lessBtn');
     	for (var i = 0; i < classnameLess.length; i++) {
     		classnameLess[i].addEventListener('click', app.lessValue);
+    		classnameLess[i].addEventListener('mousedown', app.lessValueCont);
+    		classnameLess[i].addEventListener('mouseup', app.lessValueContEnd);
 		}
 
     	let classnameMore = document.getElementsByClassName('moreBtn');
     	for (var i = 0; i < classnameMore.length; i++) {
     		classnameMore[i].addEventListener('click', app.moreValue);
+    		classnameMore[i].addEventListener('mousedown', app.moreValueCont);
+    		classnameMore[i].addEventListener('mouseup', app.moreValueContEnd);
 		}
 
 	    if ('serviceWorker' in navigator) {
@@ -180,6 +185,38 @@ var app = {
 		}
 	},
 
+	lessValueCont: function(type) {		
+		if (typeof type === "object"){
+			type = type.target.getAttribute('data-type');
+		}
+		app.intervalButton = setInterval( function() {
+			switch(type) {
+	    		case 'sets':
+					app.setsValue.innerText -= 1;
+					if (app.setsValue.innerText < 1) {
+						app.setsValue.innerText = 1;
+					}
+	  				break;
+	  			case 'work':
+					app.workValue.innerText -= 5;
+					if (app.workValue.innerText < 5) {
+						app.workValue.innerText = 5;
+					}
+	  				break;
+				case 'rest':
+					app.restValue.innerText -= 5;
+					if (app.restValue.innerText < 5) {
+						app.restValue.innerText = 5;
+					}
+	  				break;
+			}
+		}, 500);
+	},
+
+	lessValueContEnd: function() {
+		clearInterval(app.intervalButton);
+	}
+
 	moreValue: function(type) {
 		if (typeof type === "object"){
 			type = type.target.getAttribute('data-type');
@@ -223,6 +260,57 @@ var app = {
 				break;
 		}
 	},
+
+
+	moreValueCont: function(type) {		
+		if (typeof type === "object"){
+			type = type.target.getAttribute('data-type');
+		}
+		app.intervalButton = setInterval( function() {
+			switch(type) {
+				case 'sets':
+					if (parseInt(app.setsValue.innerText) < 30) {
+						app.setsValue.innerText = parseInt(app.setsValue.innerText) + 1;
+						if (parseInt(app.setsValue.innerText) < 1) {
+							app.setsValue.innerText = 1;
+						}
+					}
+						break;
+					case 'work':
+					if (parseInt(app.workValue.innerText) < 300) {
+						if (parseInt(app.workValue.innerText) < 60) {
+							app.workValue.innerText = parseInt(app.workValue.innerText) + 5;
+						} else if (parseInt(app.workValue.innerText) < 120) {
+							app.workValue.innerText = parseInt(app.workValue.innerText) + 10;
+						} else if (parseInt(app.workValue.innerText) < 180) {
+							app.workValue.innerText = parseInt(app.workValue.innerText) + 15;
+						} else if (parseInt(app.workValue.innerText) < 300) {
+							app.workValue.innerText = parseInt(app.workValue.innerText) + 30;
+						}
+						if (parseInt(app.workValue.innerText) < 5) {
+							app.workValue.innerText = 5;
+						}
+					}
+					break;
+				case 'rest':
+					if (parseInt(app.restValue.innerText) < 120) {
+						if (parseInt(app.restValue.innerText) < 60) {
+							app.restValue.innerText = parseInt(app.restValue.innerText) + 5;
+						} else if (parseInt(app.restValue.innerText) < 120) {
+							app.restValue.innerText = parseInt(app.restValue.innerText) + 10;
+						}
+						if (parseInt(app.restValue.innerText) < 5) {
+							app.restValue.innerText = 5;
+						}
+					}
+					break;
+			}
+		}, 500);
+	},
+
+	moreValueContEnd: function(type) {
+		clearInterval(app.intervalButton);
+	}
 
   	manejarTeclado: function(e) {
 
