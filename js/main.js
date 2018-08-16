@@ -210,7 +210,7 @@ var app = {
 					}
 	  				break;
 			}
-		}, 500);
+		}, 250);
 	},
 
 	lessValueContEnd: function() {
@@ -305,7 +305,7 @@ var app = {
 					}
 					break;
 			}
-		}, 500);
+		}, 250);
 	},
 
 	moreValueContEnd: function(type) {
