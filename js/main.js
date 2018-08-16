@@ -215,7 +215,7 @@ var app = {
 
 	lessValueContEnd: function() {
 		clearInterval(app.intervalButton);
-	}
+	},
 
 	moreValue: function(type) {
 		if (typeof type === "object"){
@@ -310,7 +310,7 @@ var app = {
 
 	moreValueContEnd: function(type) {
 		clearInterval(app.intervalButton);
-	}
+	},
 
   	manejarTeclado: function(e) {
 
