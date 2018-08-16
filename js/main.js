@@ -38,11 +38,13 @@ var app = {
     	let classnameLess = document.getElementsByClassName('lessBtn');
     	for (var i = 0; i < classnameLess.length; i++) {
     		classnameLess[i].addEventListener('click', app.lessValue);
+		classnameLess[i].addEventListener('mouseDown', app.lessValue);
 		}
 
     	let classnameMore = document.getElementsByClassName('moreBtn');
     	for (var i = 0; i < classnameMore.length; i++) {
     		classnameMore[i].addEventListener('click', app.moreValue);
+		classnameMore[i].addEventListener('mouseDown', app.moreValue);
 		}
 
 	    if ('serviceWorker' in navigator) {
