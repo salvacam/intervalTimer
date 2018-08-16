@@ -194,15 +194,31 @@ var app = {
 				}
   				break;
   			case 'work':
-				app.workValue.innerText = parseInt(app.workValue.innerText) + 5;
-				if (parseInt(app.workValue.innerText) < 5 || parseInt(app.workValue.innerText) > 180) {
-					app.workValue.innerText = 5;
+				if (parseInt(app.workValue.innerText) < 300) {
+					if (parseInt(app.workValue.innerText) < 60) {
+						app.workValue.innerText = parseInt(app.workValue.innerText) + 5;
+					} else if (parseInt(app.workValue.innerText) < 120) {
+						app.workValue.innerText = parseInt(app.workValue.innerText) + 10;
+					} else if (parseInt(app.workValue.innerText) < 180) {
+						app.workValue.innerText = parseInt(app.workValue.innerText) + 15;
+					} else if (parseInt(app.workValue.innerText) < 300) {
+						app.workValue.innerText = parseInt(app.workValue.innerText) + 30;
+					}
+					if (parseInt(app.workValue.innerText) < 5) {
+						app.workValue.innerText = 5;
+					}
 				}
 				break;
 			case 'rest':
-				app.restValue.innerText = parseInt(app.restValue.innerText) + 5;
-				if (parseInt(app.restValue.innerText) < 5 || parseInt(app.restValue.innerText) > 60) {
-					app.restValue.innerText = 5;
+				if (parseInt(app.restValue.innerText) < 120) {
+					if (parseInt(app.restValue.innerText) < 60) {
+						app.restValue.innerText = parseInt(app.restValue.innerText) + 5;
+					} else if (parseInt(app.restValue.innerText) < 120) {
+						app.restValue.innerText = parseInt(app.restValue.innerText) + 10;
+					}
+					if (parseInt(app.restValue.innerText) < 5) {
+						app.restValue.innerText = 5;
+					}
 				}
 				break;
 		}
