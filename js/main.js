@@ -186,7 +186,7 @@ var app = {
 		}
 		switch(type) {
     		case 'sets':
-				if (!parseInt(app.setsValue.innerText) > 29) {
+				if (parseInt(app.setsValue.innerText) < 30) {
 					app.setsValue.innerText = parseInt(app.setsValue.innerText) + 1;
 					if (parseInt(app.setsValue.innerText) < 1) {
 						app.setsValue.innerText = 1;
