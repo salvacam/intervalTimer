@@ -231,20 +231,32 @@ var app = {
 		app.intervalButton = setInterval( function() {
 			switch(type) {
 	    		case 'sets':
-					app.setsValue.innerText -= 1;
-					if (app.setsValue.innerText < 1) {
+	    			app.setsValue.innerText = parseInt(app.setsValue.innerText) - 1;
+					if (parseInt(app.setsValue.innerText) < 1) {
 						app.setsValue.innerText = 1;
 					}
 	  				break;
 	  			case 'work':
-					app.workValue.innerText -= 5;
-					if (app.workValue.innerText < 5) {
+					if (parseInt(app.workValue.innerText) < 60) {
+						app.workValue.innerText = parseInt(app.workValue.innerText) - 5;
+					} else if (parseInt(app.workValue.innerText) < 120) {
+						app.workValue.innerText = parseInt(app.workValue.innerText) - 10;
+					} else if (parseInt(app.workValue.innerText) < 180) {
+						app.workValue.innerText = parseInt(app.workValue.innerText) - 15;
+					} else if (parseInt(app.workValue.innerText) < 300) {
+						app.workValue.innerText = parseInt(app.workValue.innerText) - 30;
+					}
+					if (parseInt(app.workValue.innerText) < 5) {
 						app.workValue.innerText = 5;
 					}
 	  				break;
-				case 'rest':
-					app.restValue.innerText -= 5;
-					if (app.restValue.innerText < 5) {
+				case 'rest':					
+					if (parseInt(app.restValue.innerText) < 60) {
+						app.restValue.innerText = parseInt(app.restValue.innerText) - 5;
+					} else if (parseInt(app.restValue.innerText) < 120) {
+						app.restValue.innerText = parseInt(app.restValue.innerText) - 10;
+					}
+					if (parseInt(app.restValue.innerText) < 5) {
 						app.restValue.innerText = 5;
 					}
 	  				break;
