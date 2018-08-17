@@ -1,4 +1,4 @@
-var cacheName = 'intervalTimer-v0.1.02';
+var cacheName = 'intervalTimer-v0.1.03';
 
 var filesToCache = [
   './',
@@ -6,6 +6,12 @@ var filesToCache = [
   './js/main.js',
   './css/framework.min.css',  
   './img/icon.png',
+  './img/icon-128x128.png',
+  './img/icon-144x144.png',
+  './img/icon-192x192.png',
+  './img/icon-48x48.png',
+  './img/icon-512x512.png',
+  './img/icon-96x96.png',
   './sound/alert.ogg',
   './sound/end.ogg',
   './sound/gong.ogg',
