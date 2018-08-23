@@ -86,7 +86,7 @@ var app = {
 		document.getElementsByTagName("html")[0].classList.add('rest');
 		document.getElementsByClassName("jumbotron")[0].classList.add('rest');
 		/* TODO refactorizar */
-		let restTime = 10; //app.restValue.innerText;		
+		let restTime = 5; //app.restValue.innerText;		
 		app.interval = setInterval(function() {
 			if (!app.isPaused) {
 	  			if (restTime === 0) {
