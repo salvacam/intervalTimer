@@ -1,28 +1,15 @@
 {
-  "name": "Interval Timer",
-  "short_name": "intervalTime",
-  "version": "1.0.01",
-  "description": "Interval Timer",
-  "icons": {
-    "128": "img/icon-128x128.png"
-  },  
-  "developer": {
-    "name": "salvacam",
-    "url": "https://salvacam.js.org/"
-  },
-  "launch_path": "/index.html",
-  "type": "privileged",
+  "version": "0.4c",
+    "name":"Interval Timer",
+    "description":"Chronometer",
+    "launch_path" : "/index.html",
+    "icons":{
+      "128": "img/icon-128x128.png"
+    },  
   "permissions": {
-    "input":{"description": "This permission is require to input data"}
   },
-
-  "display":"Interval Timer", 
-
-  "fullscreen": true,
-  "default_locale": "en",
-  "locales": {
-  "en-US": {
-      "name": "Interval Timer"
+  "developer": {
+        "name":"Salvador Camacho Soto",
+        "url":"http://salvacam.js.org"
     }
-  }
 }
