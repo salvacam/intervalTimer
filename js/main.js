@@ -86,7 +86,8 @@ var app = {
 		document.getElementsByTagName("html")[0].classList.add('rest');
 		document.getElementsByClassName("jumbotron")[0].classList.add('rest');
 		/* TODO refactorizar */
-		let restTime = 5; //app.restValue.innerText;		
+		let restTime = 5; //app.restValue.innerText;
+		app.timeRest.innerText = restTime;	
 		app.interval = setInterval(function() {
 			if (!app.isPaused) {
 	  			if (restTime === 0) {
@@ -142,6 +143,7 @@ var app = {
 		if(app.isKaiOS) {
 			if ( (app.workFinish >= app.setsValue.innerText) || confirm('¿Reset chrono?')) { //TODO no preguntar
 				clearInterval(app.interval);
+				app.stateChrono = 1;
 				app.workFinish = 0;
 				app.showConfig();
 			}
@@ -153,6 +155,7 @@ var app = {
 				app.modalReset.classList.add('hide');
 				document.getElementById('okReset').removeEventListener('click', ()=> {});
 				clearInterval(app.interval);
+				app.stateChrono = 1;
 				app.workFinish = 0;
 				app.showConfig();
   			});
