@@ -11,13 +11,16 @@ var app = {
   	chronoDiv: document.getElementById('chronoDiv'),
   	setsValue: document.getElementById('setsValue'),
   	workValue: document.getElementById('workValue'),
+  	workValueInt: 30,
   	workFinish: 0,
   	restValue: document.getElementById('restValue'),
+  	restValueInt: 15,
   	positionNavigator: 0,
   	state: 1, // 1 -> config, 2 -> chrono
   	stateChrono: 1,  // 1 -> rest, 2 -> work
   	cycle: document.getElementById('cycle'),
   	timeRest: document.getElementById('timeRest'),
+  	timeRestInt: 0,
   	textChrono: document.getElementById('textChrono'),
   	interval: null,
   	intervalButton: null,
@@ -87,12 +90,13 @@ var app = {
 		document.getElementsByClassName("jumbotron")[0].classList.add('rest');
 		/* TODO refactorizar */
 		let restTime = 5; //app.restValue.innerText;
-		app.timeRest.innerText = restTime;	
+		app.timeRestInt = restTime;
+		app.timeRest.innerText = app.formatTime(app.timeRestInt);
 		app.interval = setInterval(function() {
 			if (!app.isPaused) {
 	  			if (restTime === 0) {
 	  				if (app.stateChrono === 1) {  			
-						restTime = app.workValue.innerText;
+						restTime = app.workValueInt;
 						app.stateChrono = 2;
 						app.textChrono.innerText = "Work"; /* TODO refactorizar */
 						/* TODO refactorizar */
@@ -103,7 +107,7 @@ var app = {
 						/* TODO refactorizar */
 	  					app.playSound('alert');
 	  				} else {
-	  					restTime = app.restValue.innerText;
+	  					restTime = app.restValueInt;
 	  					app.stateChrono = 1;
 	  					app.textChrono.innerText = "Rest"; /* TODO refactorizar */
 	  					app.workFinish += 1;  							
@@ -130,8 +134,8 @@ var app = {
 	  			} else {
 					restTime -=1;
 				}
-
-	  			app.timeRest.innerText = restTime;
+				app.timeRestInt = restTime;
+				app.timeRest.innerText = app.formatTime(app.timeRestInt);
 	  			if (restTime === 3) { 
 	  				app.playSound('end');
 	  			}
@@ -207,22 +211,36 @@ var app = {
 		}
 		switch(type) {
     		case 'sets':
-				app.setsValue.innerText -= 1;
-				if (app.setsValue.innerText < 1) {
+    			app.setsValue.innerText = parseInt(app.setsValue.innerText) - 1;
+				if (parseInt(app.setsValue.innerText) < 1) {
 					app.setsValue.innerText = 1;
 				}
   				break;
   			case 'work':
-				app.workValue.innerText -= 5;
-				if (app.workValue.innerText < 5) {
-					app.workValue.innerText = 5;
+				if (parseInt(app.workValueInt) < 60) {
+					app.workValueInt = parseInt(app.workValueInt) - 5;
+				} else if (parseInt(app.workValueInt) < 120) {
+					app.workValueInt = parseInt(app.workValueInt) - 10;
+				} else if (parseInt(app.workValueInt) < 180) {
+					app.workValueInt = parseInt(app.workValueInt) - 15;
+				} else if (parseInt(app.workValueInt) <= 300) {
+					app.workValueInt = parseInt(app.workValueInt) - 30;
 				}
+				if (parseInt(app.workValueInt) < 5) {
+					app.workValueInt = 5;
+				}
+				app.workValue.innerText = app.formatTime(app.workValueInt);
   				break;
 			case 'rest':
-				app.restValue.innerText -= 5;
-				if (app.restValue.innerText < 5) {
-					app.restValue.innerText = 5;
+				if (parseInt(app.restValueInt) < 60) {
+					app.restValueInt = parseInt(app.restValueInt) - 5;					
+				} else if (parseInt(app.restValueInt) <= 120) {
+					app.restValueInt = parseInt(app.restValueInt) - 10;
 				}
+				if (parseInt(app.restValueInt) < 5) {
+					app.restValueInt = 5;
+				}
+				app.restValue.innerText = app.formatTime(app.restValueInt);
   				break;
 		}
 	},
@@ -240,28 +258,30 @@ var app = {
 					}
 	  				break;
 	  			case 'work':
-					if (parseInt(app.workValue.innerText) < 60) {
-						app.workValue.innerText = parseInt(app.workValue.innerText) - 5;
-					} else if (parseInt(app.workValue.innerText) < 120) {
-						app.workValue.innerText = parseInt(app.workValue.innerText) - 10;
-					} else if (parseInt(app.workValue.innerText) < 180) {
-						app.workValue.innerText = parseInt(app.workValue.innerText) - 15;
-					} else if (parseInt(app.workValue.innerText) < 300) {
-						app.workValue.innerText = parseInt(app.workValue.innerText) - 30;
+					if (parseInt(app.workValueInt) < 60) {
+						app.workValueInt = parseInt(app.workValueInt) - 5;
+					} else if (parseInt(app.workValueInt) < 120) {
+						app.workValueInt = parseInt(app.workValueInt) - 10;
+					} else if (parseInt(app.workValueInt) < 180) {
+						app.workValueInt = parseInt(app.workValueInt) - 15;
+					} else if (parseInt(app.workValueInt) <= 300) {
+						app.workValueInt = parseInt(app.workValueInt) - 30;
 					}
-					if (parseInt(app.workValue.innerText) < 5) {
-						app.workValue.innerText = 5;
+					if (parseInt(app.workValueInt) < 5) {
+						app.workValueInt = 5;
 					}
+					app.workValue.innerText = app.formatTime(app.workValueInt);
 	  				break;
-				case 'rest':					
-					if (parseInt(app.restValue.innerText) < 60) {
-						app.restValue.innerText = parseInt(app.restValue.innerText) - 5;
-					} else if (parseInt(app.restValue.innerText) < 120) {
-						app.restValue.innerText = parseInt(app.restValue.innerText) - 10;
+				case 'rest':
+					if (parseInt(app.restValueInt) < 60) {
+						app.restValueInt = parseInt(app.restValueInt) - 5;					
+					} else if (parseInt(app.restValueInt) <= 120) {
+						app.restValueInt = parseInt(app.restValueInt) - 10;
 					}
-					if (parseInt(app.restValue.innerText) < 5) {
-						app.restValue.innerText = 5;
+					if (parseInt(app.restValueInt) < 5) {
+						app.restValueInt = 5;
 					}
+					app.restValue.innerText = app.formatTime(app.restValueInt);
 	  				break;
 			}
 		}, 250);
@@ -285,32 +305,34 @@ var app = {
 				}
   				break;
   			case 'work':
-				if (parseInt(app.workValue.innerText) < 300) {
-					if (parseInt(app.workValue.innerText) < 60) {
-						app.workValue.innerText = parseInt(app.workValue.innerText) + 5;
-					} else if (parseInt(app.workValue.innerText) < 120) {
-						app.workValue.innerText = parseInt(app.workValue.innerText) + 10;
-					} else if (parseInt(app.workValue.innerText) < 180) {
-						app.workValue.innerText = parseInt(app.workValue.innerText) + 15;
-					} else if (parseInt(app.workValue.innerText) < 300) {
-						app.workValue.innerText = parseInt(app.workValue.innerText) + 30;
+				if (parseInt(app.workValueInt) < 300) {
+					if (parseInt(app.workValueInt) < 60) {
+						app.workValueInt = parseInt(app.workValueInt) + 5;
+					} else if (parseInt(app.workValueInt) < 120) {
+						app.workValueInt = parseInt(app.workValueInt) + 10;
+					} else if (parseInt(app.workValueInt) < 180) {
+						app.workValueInt = parseInt(app.workValueInt) + 15;
+					} else if (parseInt(app.workValueInt) < 300) {
+						app.workValueInt = parseInt(app.workValueInt) + 30;
 					}
-					if (parseInt(app.workValue.innerText) < 5) {
-						app.workValue.innerText = 5;
+					if (parseInt(app.workValueInt) < 5) {
+						app.workValueInt = 5;
 					}
+					app.workValue.innerText = app.formatTime(app.workValueInt);
 				}
 				break;
 			case 'rest':
-				if (parseInt(app.restValue.innerText) < 120) {
-					if (parseInt(app.restValue.innerText) < 60) {
-						app.restValue.innerText = parseInt(app.restValue.innerText) + 5;
-					} else if (parseInt(app.restValue.innerText) < 120) {
-						app.restValue.innerText = parseInt(app.restValue.innerText) + 10;
+				if (parseInt(app.restValueInt) < 120) {
+					if (parseInt(app.restValueInt) < 60) {
+						app.restValueInt = parseInt(app.restValueInt) + 5;
+					} else if (parseInt(app.restValueInt) < 120) {
+						app.restValueInt = parseInt(app.restValueInt) + 10;
 					}
-					if (parseInt(app.restValue.innerText) < 5) {
-						app.restValue.innerText = 5;
+					if (parseInt(app.restValueInt) < 5) {
+						app.restValueInt = 5;
 					}
 				}
+				app.restValue.innerText = app.formatTime(app.restValueInt);
 				break;
 		}
 	},
@@ -330,33 +352,35 @@ var app = {
 						}
 					}
 						break;
-					case 'work':
+				case 'work':
 					if (parseInt(app.workValue.innerText) < 300) {
-						if (parseInt(app.workValue.innerText) < 60) {
-							app.workValue.innerText = parseInt(app.workValue.innerText) + 5;
-						} else if (parseInt(app.workValue.innerText) < 120) {
-							app.workValue.innerText = parseInt(app.workValue.innerText) + 10;
-						} else if (parseInt(app.workValue.innerText) < 180) {
-							app.workValue.innerText = parseInt(app.workValue.innerText) + 15;
-						} else if (parseInt(app.workValue.innerText) < 300) {
-							app.workValue.innerText = parseInt(app.workValue.innerText) + 30;
+						if (parseInt(app.workValueInt) < 60) {
+							app.workValueInt = parseInt(app.workValueInt) + 5;
+						} else if (parseInt(app.workValueInt) < 120) {
+							app.workValueInt = parseInt(app.workValueInt) + 10;
+						} else if (parseInt(app.workValueInt) < 180) {
+							app.workValueInt = parseInt(app.workValueInt) + 15;
+						} else if (parseInt(app.workValueInt) < 300) {
+							app.workValueInt = parseInt(app.workValueInt) + 30;
 						}
-						if (parseInt(app.workValue.innerText) < 5) {
-							app.workValue.innerText = 5;
+						if (parseInt(app.workValueInt) < 5) {
+							app.workValueInt = 5;
 						}
+						app.workValue.innerText = app.formatTime(app.workValueInt);
 					}
 					break;
 				case 'rest':
-					if (parseInt(app.restValue.innerText) < 120) {
-						if (parseInt(app.restValue.innerText) < 60) {
-							app.restValue.innerText = parseInt(app.restValue.innerText) + 5;
-						} else if (parseInt(app.restValue.innerText) < 120) {
-							app.restValue.innerText = parseInt(app.restValue.innerText) + 10;
+					if (parseInt(app.restValueInt) < 120) {
+						if (parseInt(app.restValueInt) < 60) {
+							app.restValueInt = parseInt(app.restValueInt) + 5;
+						} else if (parseInt(app.restValueInt) < 120) {
+							app.restValueInt = parseInt(app.restValueInt) + 10;
 						}
-						if (parseInt(app.restValue.innerText) < 5) {
-							app.restValue.innerText = 5;
+						if (parseInt(app.restValueInt) < 5) {
+							app.restValueInt = 5;
 						}
 					}
+					app.restValue.innerText = app.formatTime(app.restValueInt);
 					break;
 			}
 		}, 250);
@@ -421,5 +445,14 @@ var app = {
 		app.positionNavigator = 0;
 	}
 	navigator[app.positionNavigator].classList.add('nv-select');
-  }  
+  },
+
+  formatTime: function(time) {
+  	let seg = time%60;
+	if (seg < 10) {
+		seg = "0" + seg;
+	}
+	let min = parseInt(time/60);
+  	return min+":"+seg;
+  }
 };
