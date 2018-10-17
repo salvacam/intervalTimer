@@ -23,7 +23,7 @@
         "sizes": "512x512",
         "type": "image/png"
       }],
-  "start_url": ".",
+  "start_url": "http://salvacam.js.org/intervalTime/index.html",
   "display": "standalone",
   "orientation": "portrait",
   "theme_color": "#CCC",
