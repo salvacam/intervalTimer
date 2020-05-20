@@ -30,6 +30,9 @@ var app = {
   	modalPause: document.getElementById('modalPause'),
   	modalReset: document.getElementById('modalReset'),
 
+  	workTimeElement: document.getElementById('workTime'),
+  	workTime: 0,
+
   	playSound: function(srcSound){
 		app.audio.src = "./sound/" + srcSound + ".ogg";
 		app.audio.play();
@@ -60,6 +63,8 @@ var app = {
     		classnameMore[i].addEventListener('mouseup', app.moreValueContEnd);
     		classnameMore[i].addEventListener('touchend', app.moreValueContEnd);
 		}
+
+		app.updateWorkTime();
 
 	    if ('serviceWorker' in navigator) {
       		navigator.serviceWorker
@@ -172,6 +177,11 @@ var app = {
 		
 	},
 
+	updateWorkTime: function() {
+  		app.workTime = (app.workValueInt * parseInt(app.setsValue.innerText) ) + (app.restValueInt * (parseInt(app.setsValue.innerText) - 1) );
+		app.workTimeElement.innerText = app.formatTime(app.workTime);
+	},
+
 	showConfig: function() {
 		 /* TODO refactorizar */
 		document.getElementsByTagName("html")[0].classList.remove('work');
@@ -243,6 +253,7 @@ var app = {
 				app.restValue.innerText = app.formatTime(app.restValueInt);
   				break;
 		}
+		app.updateWorkTime();
 	},
 
 	lessValueCont: function(type) {		
@@ -284,6 +295,7 @@ var app = {
 					app.restValue.innerText = app.formatTime(app.restValueInt);
 	  				break;
 			}
+			app.updateWorkTime();
 		}, 250);
 	},
 
@@ -334,9 +346,9 @@ var app = {
 				}
 				app.restValue.innerText = app.formatTime(app.restValueInt);
 				break;
-		}
+		}		
+		app.updateWorkTime();
 	},
-
 
 	moreValueCont: function(type) {		
 		if (typeof type === "object"){
@@ -382,7 +394,8 @@ var app = {
 					}
 					app.restValue.innerText = app.formatTime(app.restValueInt);
 					break;
-			}
+			}			
+			app.updateWorkTime();
 		}, 250);
 	},
 
