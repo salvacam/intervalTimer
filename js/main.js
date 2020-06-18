@@ -162,6 +162,31 @@ var app = {
 		} else {
 			app.isPaused = true;
 			app.modalReset.classList.remove('hide');
+
+			let okReset = document.getElementById("okReset");
+			let closeReset = document.getElementById("closeReset");
+
+			let okResetFunction = () => {
+				app.isPaused = false;
+				app.modalReset.classList.add('hide');
+			    okReset.removeEventListener("click", okResetFunction);
+			    okReset.removeEventListener("click", closeResetFunction);
+				clearInterval(app.interval);
+				app.stateChrono = 1;
+				app.workFinish = 0;
+				app.showConfig();
+			}
+
+			let closeResetFunction = () => {		
+				app.isPaused = false;
+				app.modalReset.classList.add('hide');
+			    okReset.removeEventListener("click", okResetFunction);
+			    okReset.removeEventListener("click", closeResetFunction);
+			}
+
+			okReset.addEventListener("click", okResetFunction);
+			closeReset.addEventListener("click", closeResetFunction);
+			/*
   			document.getElementById('okReset').addEventListener('click', () => {  				
 				app.isPaused = false;
 				app.modalReset.classList.add('hide');
@@ -176,6 +201,7 @@ var app = {
 				app.modalReset.classList.add('hide');
 				document.getElementById('closeReset').removeEventListener('click', ()=> {});
   			}, false);
+			*/
 		}
 		
 	},
