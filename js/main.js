@@ -29,6 +29,7 @@ var app = {
   	isPaused: false,
   	modalPause: document.getElementById('modalPause'),
   	modalReset: document.getElementById('modalReset'),
+	noSleepVideo: document.getElementById('noSleepVideo'),	
 
   	workTimeElement: document.getElementById('workTime'),
   	workTime: 0,
@@ -39,6 +40,7 @@ var app = {
   	},
   
   	init: function() {
+	app.noSleepVideo.pause();
     	document.getElementById("setsLess").focus();
     	document.addEventListener('keydown', app.manejarTeclado);
 
@@ -76,6 +78,7 @@ var app = {
   	},
 
 	initChrono: function() {
+		app.noSleepVideo.play();
 		setDiv.classList.add("hide");
 		chronoDiv.classList.remove("hide");
 		app.state = 2;
@@ -183,6 +186,7 @@ var app = {
 	},
 
 	showConfig: function() {
+		app.noSleepVideo.pause();
 		 /* TODO refactorizar */
 		document.getElementsByTagName("html")[0].classList.remove('work');
 		document.getElementsByClassName("jumbotron")[0].classList.remove('work');
