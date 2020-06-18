@@ -170,12 +170,12 @@ var app = {
 				app.stateChrono = 1;
 				app.workFinish = 0;
 				app.showConfig();
-  			});
+  			}, false);
   			document.getElementById('closeReset').addEventListener('click', () => {  				
 				app.isPaused = false;
 				app.modalReset.classList.add('hide');
 				document.getElementById('closeReset').removeEventListener('click', ()=> {});
-  			});
+  			}, false);
 		}
 		
 	},
