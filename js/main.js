@@ -165,23 +165,23 @@ var app = {
 
 			let okReset = document.getElementById("okReset");
 			let closeReset = document.getElementById("closeReset");
-
+			let closeResetFunction;
 			let okResetFunction = () => {
 				app.isPaused = false;
 				app.modalReset.classList.add('hide');
 			    okReset.removeEventListener("click", okResetFunction);
-			    okReset.removeEventListener("click", closeResetFunction);
+			    closeReset.removeEventListener("click", closeResetFunction);
 				clearInterval(app.interval);
 				app.stateChrono = 1;
 				app.workFinish = 0;
 				app.showConfig();
 			}
 
-			let closeResetFunction = () => {		
+			closeResetFunction = () => {		
 				app.isPaused = false;
 				app.modalReset.classList.add('hide');
 			    okReset.removeEventListener("click", okResetFunction);
-			    okReset.removeEventListener("click", closeResetFunction);
+			    closeReset.removeEventListener("click", closeResetFunction);
 			}
 
 			okReset.addEventListener("click", okResetFunction);
