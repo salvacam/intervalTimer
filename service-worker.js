@@ -1,4 +1,4 @@
-var cacheName = 'intervalTimer-v0.1.07';
+var cacheName = 'intervalTimer-v0.1.09';
 
 var filesToCache = [
   './',
