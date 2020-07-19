@@ -40,7 +40,7 @@ var app = {
   	},
   
   	init: function() {
-	app.noSleepVideo.pause();
+		app.noSleepVideo.pause();
     	document.getElementById("setsLess").focus();
     	document.addEventListener('keydown', app.manejarTeclado);
 
@@ -50,11 +50,11 @@ var app = {
 
     	let classnameLess = document.getElementsByClassName('lessBtn');
     	for (var i = 0; i < classnameLess.length; i++) {
-    		classnameLess[i].addEventListener('click', app.lessValue);
+    		classnameLess[i].addEventListener('click', app.lessValue);	
     		classnameLess[i].addEventListener('mousedown', app.lessValueCont);
     		classnameLess[i].addEventListener('touchstart', app.lessValueCont);
-    		classnameLess[i].addEventListener('mouseup', app.lessValueContEnd);
-    		classnameLess[i].addEventListener('touchend', app.lessValueContEnd);    		
+    		classnameLess[i].addEventListener('mouseup', app.contEnd);
+    		classnameLess[i].addEventListener('touchend', app.contEnd);    		
 		}
 
     	let classnameMore = document.getElementsByClassName('moreBtn');
@@ -62,8 +62,8 @@ var app = {
     		classnameMore[i].addEventListener('click', app.moreValue);
     		classnameMore[i].addEventListener('mousedown', app.moreValueCont);
     		classnameMore[i].addEventListener('touchstart', app.moreValueCont);
-    		classnameMore[i].addEventListener('mouseup', app.moreValueContEnd);
-    		classnameMore[i].addEventListener('touchend', app.moreValueContEnd);
+    		classnameMore[i].addEventListener('mouseup', app.contEnd);
+    		classnameMore[i].addEventListener('touchend', app.contEnd);
 		}
 
 		app.updateWorkTime();
@@ -286,8 +286,8 @@ var app = {
 		app.updateWorkTime();
 	},
 
-	lessValueCont: function(type) {		
-		if (typeof type === "object"){
+	lessValueCont: function(type) {
+		if (typeof type === "object") {
 			type = type.target.getAttribute('data-type');
 		}
 		app.intervalButton = setInterval( function() {
@@ -328,9 +328,11 @@ var app = {
 			app.updateWorkTime();
 		}, 250);
 	},
-
-	lessValueContEnd: function() {
-		clearInterval(app.intervalButton);
+	
+	contEnd: function() {
+		for (var i = 0; i <= app.intervalButton; i ++) {
+			clearInterval(i);
+		}
 	},
 
 	moreValue: function(type) {
@@ -427,10 +429,6 @@ var app = {
 			}			
 			app.updateWorkTime();
 		}, 250);
-	},
-
-	moreValueContEnd: function(type) {
-		clearInterval(app.intervalButton);
 	},
 
   	manejarTeclado: function(e) {
