@@ -15,6 +15,7 @@ var app = {
   	workFinish: 0,
   	restValue: document.getElementById('restValue'),
   	restValueInt: 15,
+  	timeReset: 3000,
   	positionNavigator: 0,
   	state: 1, // 1 -> config, 2 -> chrono
   	stateChrono: 1,  // 1 -> rest, 2 -> work
@@ -127,7 +128,7 @@ var app = {
 							restTime = 0;
 	    					setTimeout(function () {
 								app.showConfig();
-	    					}, 10000);
+	    					}, app.timeReset);
 	  					} else {
 		  					cycle.innerText = (app.workFinish + 1) + "/" + app.setsValue.innerText;
 		  					/* TODO refactorizar */
@@ -278,7 +279,7 @@ var app = {
 					app.restValueInt = parseInt(app.restValueInt) - 10;
 				}
 				if (parseInt(app.restValueInt) < 5) {
-					app.restValueInt = 5;
+					app.restValueInt = 3;
 				}
 				app.restValue.innerText = app.formatTime(app.restValueInt);
   				break;
@@ -309,7 +310,7 @@ var app = {
 						app.workValueInt = parseInt(app.workValueInt) - 30;
 					}
 					if (parseInt(app.workValueInt) < 5) {
-						app.workValueInt = 5;
+						app.workValueInt = 3;
 					}
 					app.workValue.innerText = app.formatTime(app.workValueInt);
 	  				break;
@@ -368,12 +369,16 @@ var app = {
 			case 'rest':
 				if (parseInt(app.restValueInt) < 120) {
 					if (parseInt(app.restValueInt) < 60) {
-						app.restValueInt = parseInt(app.restValueInt) + 5;
+						if (parseInt(app.restValueInt) < 5) {
+							app.restValueInt = 5;
+						} else {
+							app.restValueInt = parseInt(app.restValueInt) + 5;
+						}
 					} else if (parseInt(app.restValueInt) < 120) {
 						app.restValueInt = parseInt(app.restValueInt) + 10;
 					}
 					if (parseInt(app.restValueInt) < 5) {
-						app.restValueInt = 5;
+						app.restValueInt = 3;
 					}
 				}
 				app.restValue.innerText = app.formatTime(app.restValueInt);
@@ -408,7 +413,7 @@ var app = {
 							app.workValueInt = parseInt(app.workValueInt) + 30;
 						}
 						if (parseInt(app.workValueInt) < 5) {
-							app.workValueInt = 5;
+							app.workValueInt = 3;
 						}
 						app.workValue.innerText = app.formatTime(app.workValueInt);
 					}
@@ -416,6 +421,9 @@ var app = {
 				case 'rest':
 					if (parseInt(app.restValueInt) < 120) {
 						if (parseInt(app.restValueInt) < 60) {
+							if (parseInt(app.restValueInt) < 5) {
+								app.restValueInt = 5;
+							} else {
 							app.restValueInt = parseInt(app.restValueInt) + 5;
 						} else if (parseInt(app.restValueInt) < 120) {
 							app.restValueInt = parseInt(app.restValueInt) + 10;
