@@ -424,7 +424,8 @@ var app = {
 							if (parseInt(app.restValueInt) < 5) {
 								app.restValueInt = 5;
 							} else {
-							app.restValueInt = parseInt(app.restValueInt) + 5;
+								app.restValueInt = parseInt(app.restValueInt) + 5;
+							}
 						} else if (parseInt(app.restValueInt) < 120) {
 							app.restValueInt = parseInt(app.restValueInt) + 10;
 						}
